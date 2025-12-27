@@ -16,7 +16,7 @@ app.use('/api/tasks/',taskRoutes)
 
 // Listening for requests
 connectDB().then(()=>{
-    app.listen(process.env.PORT || 3000, () => {
+    app.listen(process.env.PORT || 4000, () => {
       console.log(`Server Running on http://locahost:${process.env.PORT}`);
     });
 })
