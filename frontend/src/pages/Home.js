@@ -1,5 +1,10 @@
 import { useEffect,useState } from "react"
 
+
+// components
+import TaskDetails from "../components/taskDetails";
+import TaskForm from "../components/taskForm";
+
 const Home=()=>{
 const [tasks,setTask]=useState(null);
 useEffect(()=>{
@@ -17,8 +22,9 @@ useEffect(()=>{
         <div className="Home">
             <div className="tasks">
                 {tasks && tasks.map((task)=>(
-                    <p key={task._id}>{task.Title}</p>
+                    <TaskDetails key={task._id} task={task}/>
                 ))}
+                <TaskForm/>
             </div>
         </div>
     )
