@@ -1,10 +1,10 @@
-const tasks = require("../models/taskModel");
+const task = require("../models/taskModel");
 const mongoose=require('mongoose')
 
 // Getting all Tasks
 const getTasks= async(req,res)=>{
     try {
-        const allTasks = await tasks.find({}).sort({ createdAt: -1 });
+        const allTasks = await task.find({}).sort({ createdAt: -1 });
         res.status(200).json(allTasks)
     } catch (error) {
         res.status(400)
@@ -21,7 +21,7 @@ const oneTask = async (req, res) => {
       return res.status(400).json({ message: "Invalid workout ID" });
     }
 
-    const oneTask = await tasks.findOne({_id:id});
+    const oneTask = await task.findOne({_id:id});
 
     if (!oneTask) {
       return res.status(404).json({ message: "Task not found" });
@@ -35,9 +35,9 @@ const oneTask = async (req, res) => {
 
 // Creating a Task
 const createTask=async (req,res)=>{
-    const{Title,Description,Status,Priority,Due_date}=req.body
+    const{title,description,status,priority,due_date}=req.body
     try {
-        const newTask=await tasks.create({Title,Description,Status,Priority,Due_date});
+        const newTask=await task.create({title,description,status,priority,due_date});
         res.status(200).json(newTask);
     } catch (error) {
         res.status(400)
@@ -52,7 +52,7 @@ const updateTask= async(req,res)=>{
         if(!mongoose.Types.ObjectId.isValid(id)){
            return res.status(400).json({ message: "Invalid workout ID" });
         }
-        const updateTask= await tasks.findOneAndUpdate({_id:id})
+        const updateTask= await task.findOneAndUpdate({_id:id})
         if (!updateTask) {
           return res.status(404).json({ message: "Task not found" });
         }
@@ -68,7 +68,7 @@ const updateTask= async(req,res)=>{
 // Deleting all Tasks
 const deleteTasks=async(req,res)=>{
     try {
-        const allTasks= await tasks.deleteMany()
+        const allTasks= await task.deleteMany()
         if (!allTasks) {
           return res.status(404).json({ message: "Tasks not found" });
         }
@@ -87,7 +87,7 @@ const deleteTask=async(req,res)=>{
         if (!mongoose.Types.ObjectId.isValid(id)) {
           return res.status(400).json({ message: "Invalid workout ID" });
         }
-        const oneTask= await tasks.findOneAndDelete({_id:id})
+        const oneTask= await task.findOneAndDelete({_id:id})
         if (!oneTask) {
           return res.status(404).json({ message: "Task not found" });
         }

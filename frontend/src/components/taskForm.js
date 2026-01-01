@@ -5,14 +5,14 @@ const TaskForm = () => {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("");
   const [priority, setPriority] = useState("");
-  const [date, setDate] = useState("");
-  const [error,setError]=useState(null)
+  const [due_date, setDate] = useState("");
+  const [error, setError]=useState(null)
 
 const handleSubmit=async (e) => {
-    e.prevent.default()
-    const task={title,description,status,priority,date}
+    e.preventDefault()
+    const task={title,description,status,priority,due_date}
 
-    const response = await fetch("/api/tasks/",{
+    const response = await fetch("/api/tasks",{
         method:"POST",
         body:JSON.stringify(task),
         headers:{
@@ -27,17 +27,18 @@ const handleSubmit=async (e) => {
     }
 
     if (response.ok){
-        setTitle("")
-        setDescription("")
-        setPriority("")
-        setStatus("")
-        setDate("")
-        console.log("New workout Added")
+        setTitle("");
+        setDescription("");
+        setPriority("");
+        setStatus("");
+        setDate("");
+        setError("null");
+        console.log("New Task Added")
     }
-}
+};
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="create" onSubmit={handleSubmit}>
       <h3>Add New Task</h3>
 
       <label htmlFor="title">Title</label> <br />
@@ -75,9 +76,10 @@ const handleSubmit=async (e) => {
       <input
         type="date"
         onChange={(e) => setDate(e.target.value)}
-        value={date}
+        value={due_date}
       />
       <button type="submit">Add Task</button>
+      {error && <div className="error">{error}</div>}
     </form>
   );
 };

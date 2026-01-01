@@ -9,7 +9,7 @@ const Home=()=>{
 const [tasks,setTask]=useState(null);
 useEffect(()=>{
     const fetchTask=async()=>{
-        const response = await fetch("/api/tasks/");
+        const response = await fetch("/api/tasks");
         const json= await response.json()
 
         if(response.ok){
